@@ -1807,6 +1807,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2051786545}
   - component: {fileID: 2051786544}
+  - component: {fileID: 2051786546}
   m_Layer: 0
   m_Name: AI
   m_TagString: Untagged
@@ -1831,6 +1832,11 @@ MonoBehaviour:
   scroll: {fileID: 1625198430}
   sent: {fileID: 8660877164928630359, guid: 53cd26a6eefa5a74086203cd118a04d3, type: 3}
   received: {fileID: 961534450149497043, guid: adc0146c2853ed1418133faaf4379eb1, type: 3}
+  prompt: Act as a random introverted student in a classroom. Do not agree everything.
+    Do not like everything. Do not always ask question. Don't break character. Don't
+    ever mention that you are an AI model. Include only (happy, sad, neutral, doubtful)
+    with bracket at the end. For example, I am a human. (happy)
+  speech: {fileID: 2051786546}
 --- !u!4 &2051786545
 Transform:
   m_ObjectHideFlags: 0
@@ -1846,6 +1852,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2051786546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2051786543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cab6f277dd8f3a4aa0c11c1ddef95be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

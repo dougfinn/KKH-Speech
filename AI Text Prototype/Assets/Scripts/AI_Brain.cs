@@ -21,9 +21,11 @@ public class AI_Brain : MonoBehaviour
     private List<ChatMessage> messages = new List<ChatMessage>();
     [TextArea(5, 10)] [SerializeField] private string prompt = "Act as a random introverted student in a classroom. Do not agree everything. Do not like everything. Do not always ask question. Don't break character. Don't ever mention that you are an AI model. Include only (happy, sad, neutral, doubtful) with bracket at the end. For example, I am a human. (happy)";
 
+    public AI_TextToSpeech speech;
     private void Start()
     {
         button.onClick.AddListener(SendReply);
+        speech = GetComponent<AI_TextToSpeech>();
     }
 
     private void AppendMessage(ChatMessage message)
@@ -72,6 +74,8 @@ public class AI_Brain : MonoBehaviour
 
             messages.Add(message);
             AppendMessage(message);
+
+            speech.Speak(message.Content);
         }
         else
         {
