@@ -5,8 +5,67 @@ using System.Text;
 
 public class AI_TextToSpeech : MonoBehaviour
 {
-    private string apiKey = "AIzaSyCREbUP8YpJCnpnR1OJBDwivQWa81Cet5s";
+    [System.Serializable]
+    private class ApiKeyData
+    {
+        public string apiKey;
+    }
+
+    [System.Serializable]
+    private class TTSRequest
+    {
+        public TTSInput input;
+        public TTSVoice voice;
+        public TTSAudioConfig audioConfig;
+    }
+
+    [System.Serializable]
+    private class TTSInput
+    {
+        public string text;
+    }
+
+    [System.Serializable]
+    private class TTSVoice
+    {
+        public string languageCode;
+        public string name;
+    }
+
+    [System.Serializable]
+    private class TTSAudioConfig
+    {
+        public string audioEncoding;
+    }
+
+    [System.Serializable]
+    private class TTSResponse
+    {
+        public string audioContent;
+    }
+
+    private string apiKey;
     private string ttsUrl => $"https://texttospeech.googleapis.com/v1/text:synthesize?key={apiKey}";
+
+    private void Awake()
+    {
+        LoadApiKey();
+    }
+
+    private void LoadApiKey()
+    {
+        TextAsset apiKeyFile = Resources.Load<TextAsset>("ai-tts-459307-0b0fac299a06");
+        if (apiKeyFile != null)
+        {
+            ApiKeyData data = JsonUtility.FromJson<ApiKeyData>(apiKeyFile.text);
+            apiKey = data.apiKey;
+            Debug.Log("API Key loaded successfully.");
+        }
+        else
+        {
+            Debug.LogError("API Key file not found! Make sure 'google_tts_key.json' is in the Resources folder.");
+        }
+    }
 
     public void Speak(string inputText)
     {
@@ -52,8 +111,8 @@ public class AI_TextToSpeech : MonoBehaviour
                 GameObject audioObject = new GameObject("TTS_Audio");
                 AudioSource audioSource = audioObject.AddComponent<AudioSource>();
                 audioSource.clip = audioClip;
-                audioSource.volume = 1.0f; // You can increase this above 1.0 if needed (e.g., 2.0)
-                audioSource.spatialBlend = 0f; // Ensure it's 2D sound
+                audioSource.volume = 1.0f;
+                audioSource.spatialBlend = 0f;
                 audioSource.Play();
 
                 UnityEngine.Object.Destroy(audioObject, audioClip.length);
@@ -65,38 +124,5 @@ public class AI_TextToSpeech : MonoBehaviour
             Debug.LogError($"TTS Error: {www.error}");
             Debug.LogError($"TTS Full Error: {www.downloadHandler.text}");
         }
-    }
-
-    [System.Serializable]
-    private class TTSRequest
-    {
-        public TTSInput input;
-        public TTSVoice voice;
-        public TTSAudioConfig audioConfig;
-    }
-
-    [System.Serializable]
-    private class TTSInput
-    {
-        public string text;
-    }
-
-    [System.Serializable]
-    private class TTSVoice
-    {
-        public string languageCode;
-        public string name;
-    }
-
-    [System.Serializable]
-    private class TTSAudioConfig
-    {
-        public string audioEncoding;
-    }
-
-    [System.Serializable]
-    private class TTSResponse
-    {
-        public string audioContent;
     }
 }
