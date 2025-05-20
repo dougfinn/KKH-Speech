@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.IO;
+using System.Threading.Tasks;
 
 public class AI_SpeechToText : MonoBehaviour
 {
@@ -48,23 +49,29 @@ public class AI_SpeechToText : MonoBehaviour
         clip.GetData(samples, 0);
         bytes = EncodeAsWAV(samples, clip.frequency, clip.channels);
         recording = false;
-        SendRecording();
+        SendRecordingAsync();
     }
 
-    private void SendRecording()
+    private async void SendRecordingAsync()
     {
         text.color = Color.yellow;
         text.text = "Sending...";
         stopButton.interactable = false;
-        HuggingFaceAPI.AutomaticSpeechRecognition(bytes, response => {
+
+        try
+        {
+            string apiKey = "your_huggingface_api_key"; // Replace this
+            string result = await HuggingFaceAPI.SendAudio(bytes, apiKey);
             text.color = Color.white;
-            text.text = response;
-            startButton.interactable = true;
-        }, error => {
+            text.text = result;
+        }
+        catch (System.Exception ex)
+        {
             text.color = Color.red;
-            text.text = error;
-            startButton.interactable = true;
-        });
+            text.text = $"Error: {ex.Message}";
+        }
+
+        startButton.interactable = true;
     }
 
     private byte[] EncodeAsWAV(float[] samples, int frequency, int channels)
