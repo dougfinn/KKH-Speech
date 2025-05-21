@@ -15,6 +15,14 @@ public class AI_SpeechToText : MonoBehaviour
     private AudioClip clip;
     private byte[] bytes;
     private bool recording;
+    
+    [System.Serializable]
+    private class ApiKeyData
+    {
+        public string apiKey;
+    }
+
+    private string apiKey;
 
     private void Start()
     {
@@ -51,7 +59,20 @@ public class AI_SpeechToText : MonoBehaviour
         recording = false;
         SendRecordingAsync();
     }
-
+    private void LoadApiKey()
+    {
+        TextAsset apiKeyFile = Resources.Load<TextAsset>("HuggingFaceConfig");
+        if (apiKeyFile != null)
+        {
+            ApiKeyData data = JsonUtility.FromJson<ApiKeyData>(apiKeyFile.text);
+            apiKey = data.apiKey;
+            Debug.Log("API Key loaded successfully.");
+        }
+        else
+        {
+            Debug.LogError("API Key file not found");
+        }
+    }
     private async void SendRecordingAsync()
     {
         text.color = Color.yellow;
@@ -60,7 +81,7 @@ public class AI_SpeechToText : MonoBehaviour
 
         try
         {
-            string apiKey = "your_huggingface_api_key"; // Replace this
+            string apiKey = "{apiKey}";
             string result = await HuggingFaceAPI.SendAudio(bytes, apiKey);
             text.color = Color.white;
             text.text = result;
