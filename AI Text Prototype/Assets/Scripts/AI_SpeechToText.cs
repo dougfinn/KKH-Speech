@@ -31,7 +31,7 @@ public class AI_SpeechToText : MonoBehaviour
         }
     }
 
-    private void StartRecording()
+    public void StartRecording()
     {
         text.color = Color.white;
         text.text = "Recording...";
@@ -41,7 +41,7 @@ public class AI_SpeechToText : MonoBehaviour
         recording = true;
     }
 
-    private void StopRecording()
+    public void StopRecording()
     {
         var position = Microphone.GetPosition(null);
         Microphone.End(null);
@@ -102,4 +102,5 @@ public class AI_SpeechToText : MonoBehaviour
             return memoryStream.ToArray();
         }
     }
+   
 }
