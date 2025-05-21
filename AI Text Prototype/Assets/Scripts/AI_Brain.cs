@@ -22,12 +22,21 @@ public class AI_Brain : MonoBehaviour
     [TextArea(5, 10)] [SerializeField] private string prompt = "You are a 12 year old student in a school in Singapore. You are talking with your friend, Sally, who is also a 12 year old and autistic. You are talking about whether you should go for lunch or not and where. The options are the school canteen, or to go a coffee shop. Sometimes, sally finds it hard to respond and you may not understand what she says. You are supportive and helpful. Speak in an appropriate style for a young school girl. Sometimes, you may hesitate thinking about what to say, using Ah, Um, Yeh, etc. Basically, you are a young person talking to your friend. Be naturalistic and concise. Do not answer with more than 10 words.";
 
     public AI_TextToSpeech speech;
+    public AI_SpeechToText speechToText;
     private void Start()
     {
         button.onClick.AddListener(SendReply);
         speech = GetComponent<AI_TextToSpeech>();
+        speechToText = GetComponent<AI_SpeechToText>();
     }
-
+    public void ChangeToText()
+    {
+        var newMessage = new ChatMessage()
+        {
+            Role = "user",
+            Content = speechToText.ConvertedText
+        };
+    }
     private void AppendMessage(ChatMessage message)
     {
         scroll.content.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 0);

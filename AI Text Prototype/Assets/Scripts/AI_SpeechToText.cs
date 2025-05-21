@@ -15,7 +15,8 @@ public class AI_SpeechToText : MonoBehaviour
     private AudioClip clip;
     private byte[] bytes;
     private bool recording;
-    
+    public string ConvertedText { get; private set; }
+
     [System.Serializable]
     private class ApiKeyData
     {
@@ -85,6 +86,7 @@ public class AI_SpeechToText : MonoBehaviour
             string result = await HuggingFaceAPI.SendAudio(bytes, apiKey);
             text.color = Color.white;
             text.text = result;
+            ConvertedText = result;
         }
         catch (System.Exception ex)
         {
