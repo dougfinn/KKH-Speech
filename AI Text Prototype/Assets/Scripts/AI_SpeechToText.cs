@@ -34,9 +34,14 @@ public class AI_SpeechToText : MonoBehaviour
 
     private void Update()
     {
-        if (recording && Microphone.GetPosition(null) >= clip.samples)
+        if (recording)
         {
-            StopRecording();
+            Debug.Log("Mic position: " + Microphone.GetPosition(null));
+
+            if (Microphone.GetPosition(null) >= clip.samples)
+            {
+                StopRecording();
+            }
         }
     }
 
@@ -48,30 +53,58 @@ public class AI_SpeechToText : MonoBehaviour
             return;
         }
 
-        string mic = Microphone.devices[0]; // Use the first available mic
+        string micDevice = Microphone.devices[0];
+        clip = Microphone.Start(micDevice, false, 10, 44100);
+
+        if (clip == null)
+        {
+            Debug.LogError("Failed to start recording.");
+            return;
+        }
 
         text.color = Color.white;
         text.text = "Recording...";
         startButton.interactable = false;
         stopButton.interactable = true;
-
-        clip = Microphone.Start(mic, false, 10, 44100);
         recording = true;
     }
 
     public void StopRecording()
     {
-        int position = Microphone.GetPosition(null);  // Where recording stopped
-        Microphone.End(null);
-
-        if (position <= 0 || clip == null)
+        if (!Microphone.IsRecording(null))
         {
-            Debug.LogWarning("Microphone recording was empty or failed.");
+            Debug.LogWarning("Microphone was not recording.");
             return;
         }
 
-        float[] samples = new float[position * clip.channels];
-        clip.GetData(samples, 0);  // Safe now
+        int position = Microphone.GetPosition(null);
+        if (position <= 0)
+        {
+            Debug.LogWarning("No audio was captured.");
+            Microphone.End(null);
+            return;
+        }
+
+        Microphone.End(null);
+
+        if (clip == null)
+        {
+            Debug.LogError("AudioClip is null.");
+            return;
+        }
+
+        int samplesCount = position * clip.channels;
+        float[] samples = new float[samplesCount];
+
+        try
+        {
+            clip.GetData(samples, 0);
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError("Error extracting audio samples: " + ex.Message);
+            return;
+        }
 
         bytes = EncodeAsWAV(samples, clip.frequency, clip.channels);
         recording = false;
