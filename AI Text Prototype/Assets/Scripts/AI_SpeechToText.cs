@@ -12,6 +12,8 @@ public class AI_SpeechToText : MonoBehaviour
     [SerializeField] private Button stopButton;
     [SerializeField] private TextMeshProUGUI text;
 
+    public AI_Brain aiBrain;
+
     private AudioClip clip;
     private byte[] bytes;
     private bool recording;
@@ -150,6 +152,7 @@ public class AI_SpeechToText : MonoBehaviour
             text.color = Color.white;
             text.text = result;
             ConvertedText = result;
+            aiBrain.UseConvertedText();
         }
         catch (System.Exception ex)
         {

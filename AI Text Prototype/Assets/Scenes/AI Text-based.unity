@@ -1193,6 +1193,7 @@ MonoBehaviour:
   startButton: {fileID: 859115866}
   stopButton: {fileID: 805239128}
   text: {fileID: 1324600608}
+  aiBrain: {fileID: 0}
 --- !u!1 &950118584
 GameObject:
   m_ObjectHideFlags: 0
@@ -2360,6 +2361,7 @@ GameObject:
   - component: {fileID: 2051786545}
   - component: {fileID: 2051786544}
   - component: {fileID: 2051786546}
+  - component: {fileID: 2051786547}
   m_Layer: 0
   m_Name: AI
   m_TagString: Untagged
@@ -2394,7 +2396,7 @@ MonoBehaviour:
     talking to your friend. Be naturalistic and concise. Do not answer with more
     than 10 words.
   speech: {fileID: 2051786546}
-  speechToText: {fileID: 0}
+  speechToText: {fileID: 2051786547}
 --- !u!4 &2051786545
 Transform:
   m_ObjectHideFlags: 0
@@ -2422,6 +2424,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cab6f277dd8f3a4aa0c11c1ddef95be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2051786547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2051786543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3ffce9a8316e924683346c9ebf78e58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startButton: {fileID: 0}
+  stopButton: {fileID: 0}
+  text: {fileID: 0}
+  aiBrain: {fileID: 2051786544}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

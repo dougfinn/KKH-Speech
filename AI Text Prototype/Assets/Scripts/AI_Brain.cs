@@ -29,6 +29,21 @@ public class AI_Brain : MonoBehaviour
         speech = GetComponent<AI_TextToSpeech>();
         speechToText = GetComponent<AI_SpeechToText>();
     }
+
+    public void UseConvertedText()
+    {
+        string userSpeech = speechToText.ConvertedText;
+
+        if (!string.IsNullOrEmpty(userSpeech))
+        {
+            inputField.text = userSpeech;
+            SendReply();
+        }
+        else
+        {
+            Debug.LogWarning("Converted text is empty or null.");
+        }
+    }
     public void ChangeToText()
     {
         var newMessage = new ChatMessage()
