@@ -42,11 +42,20 @@ public class AI_SpeechToText : MonoBehaviour
 
     public void StartRecording()
     {
+        if (Microphone.devices.Length == 0)
+        {
+            Debug.LogError("No microphone detected.");
+            return;
+        }
+
+        string mic = Microphone.devices[0]; // Use the first available mic
+
         text.color = Color.white;
         text.text = "Recording...";
         startButton.interactable = false;
         stopButton.interactable = true;
-        clip = Microphone.Start(null, false, 10, 44100);
+
+        clip = Microphone.Start(mic, false, 10, 44100);
         recording = true;
     }
 
