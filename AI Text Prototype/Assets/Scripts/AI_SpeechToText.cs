@@ -49,19 +49,32 @@ public class AI_SpeechToText : MonoBehaviour
     {
         if (Microphone.devices.Length == 0)
         {
-            Debug.LogError("No microphone detected.");
+            Debug.LogError("No microphone devices found.");
             return;
         }
 
         string micDevice = Microphone.devices[0];
         clip = Microphone.Start(micDevice, false, 10, 44100);
+        StartCoroutine(WaitForMicrophoneStart(micDevice));
+    }
 
-        if (clip == null)
+    private IEnumerator WaitForMicrophoneStart(string micDevice)
+    {
+        int safetyCounter = 0;
+
+        while (Microphone.GetPosition(micDevice) <= 0)
         {
-            Debug.LogError("Failed to start recording.");
-            return;
+            safetyCounter++;
+            if (safetyCounter > 100)
+            {
+                Debug.LogError("Microphone failed to start after waiting.");
+                yield break;
+            }
+
+            yield return null;
         }
 
+        Debug.Log("Microphone recording started.");
         text.color = Color.white;
         text.text = "Recording...";
         startButton.interactable = false;
