@@ -52,10 +52,18 @@ public class AI_SpeechToText : MonoBehaviour
 
     public void StopRecording()
     {
-        var position = Microphone.GetPosition(null);
+        int position = Microphone.GetPosition(null);  // Where recording stopped
         Microphone.End(null);
-        var samples = new float[position * clip.channels];
-        clip.GetData(samples, 0);
+
+        if (position <= 0 || clip == null)
+        {
+            Debug.LogWarning("Microphone recording was empty or failed.");
+            return;
+        }
+
+        float[] samples = new float[position * clip.channels];
+        clip.GetData(samples, 0);  // Safe now
+
         bytes = EncodeAsWAV(samples, clip.frequency, clip.channels);
         recording = false;
         SendRecordingAsync();
