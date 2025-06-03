@@ -6,8 +6,9 @@ using UnityEngine.UI;
 using TMPro;
 using System.Text.RegularExpressions;
 
-public class AI_Brain : MonoBehaviour
+public class OpenAIChat : MonoBehaviour
 {
+    [Header("UI Elements")]
     [SerializeField] private TMP_InputField inputField;
     [SerializeField] private Button button;
     [SerializeField] private ScrollRect scroll;
@@ -19,11 +20,26 @@ public class AI_Brain : MonoBehaviour
     private OpenAIApi openai = new OpenAIApi();
 
     private List<ChatMessage> messages = new List<ChatMessage>();
-    [TextArea(5, 10)] [SerializeField] private string prompt = "Act as a random introverted student in a classroom. Do not agree everything. Do not like everything. Do not always ask question. Don't break character. Don't ever mention that you are an AI model. Include only (happy, sad, neutral, doubtful) with bracket at the end. For example, I am a human. (happy)";
+    private string prompt = "Act as a random introverted student in a classroom. Do not agree everything. Do not like everything. Do not always ask question. Don't break character. Don't ever mention that you are an AI model. Include only (happy, sad, neutral, doubtful) with bracket at the end. For example, I am a human. (happy)";
 
     private void Start()
     {
+        LoadPromptFromJson();
         button.onClick.AddListener(SendReply);
+    }
+
+    private void LoadPromptFromJson()
+    {
+        TextAsset jsonFile = Resources.Load<TextAsset>("AI_Prompt"); // name .json extension
+        if (jsonFile != null)
+        {
+            PromptData promptData = JsonUtility.FromJson<PromptData>(jsonFile.text);
+            prompt = promptData.prompt;
+        }
+        else
+        {
+            Debug.LogError("Prompt JSON file not found in Resources.");
+        }
     }
 
     private void AppendMessage(ChatMessage message)
@@ -80,5 +96,10 @@ public class AI_Brain : MonoBehaviour
 
         button.enabled = true;
         inputField.enabled = true;
+    }
+
+    public class PromptData
+    {
+        public string prompt;
     }
 }
