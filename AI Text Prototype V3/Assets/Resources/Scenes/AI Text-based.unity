@@ -2491,7 +2491,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f6c87a428fd5d0be9bbc686bdc8c3c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  advancedOptions: 1
+  advancedOptions: 0
   remote: 0
   _llm: {fileID: 959205427}
   APIKey: 
@@ -2588,7 +2588,7 @@ MonoBehaviour:
   logLevel: 1
   modelPath: Whisper/ggml-tiny.bin
   isModelPathInStreamingAssets: 1
-  initOnAwake: 0
+  initOnAwake: 1
   useGpu: 1
   flashAttention: 0
   language: en
