@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.Networking;
 using System.Collections;
 using System.Text;
@@ -6,24 +6,48 @@ using System.Net;
 
 public class AI_TextToSpeech : MonoBehaviour
 {
-    public string languageCode = "en-US";
-    public string voiceName = "en-US-Wavenet-F"; // ✅ Change this to female voice
+    [System.Serializable]
+    private class ApiKeyData
+    {
+        public string apiKey;
+    }
 
     [System.Serializable]
-    private class ApiKeyData { public string apiKey; }
+    private class TTSRequest
+    {
+        public TTSInput input;
+        public TTSVoice voice;
+        public TTSAudioConfig audioConfig;
+    }
+
     [System.Serializable]
-    private class TTSRequest { public TTSInput input; public TTSVoice voice; public TTSAudioConfig audioConfig; }
+    private class TTSInput
+    {
+        public string text;
+    }
+
     [System.Serializable]
-    private class TTSInput { public string text; }
+    private class TTSVoice
+    {
+        public string languageCode;
+        public string name;
+    }
+
     [System.Serializable]
-    private class TTSVoice { public string languageCode; public string name; }
+    private class TTSAudioConfig
+    {
+        public string audioEncoding;
+    }
+
     [System.Serializable]
-    private class TTSAudioConfig { public string audioEncoding; }
-    [System.Serializable]
-    private class TTSResponse { public string audioContent; }
+    private class TTSResponse
+    {
+        public string audioContent;
+    }
 
     private string apiKey;
     private string ttsUrl => $"https://texttospeech.googleapis.com/v1/text:synthesize?key={apiKey}";
+
     private AudioSource audioSource;
 
     private void Awake()
@@ -33,12 +57,12 @@ public class AI_TextToSpeech : MonoBehaviour
 
     private void Start()
     {
-        audioSource = GetComponent<AudioSource>();
+        audioSource = gameObject.GetComponent<AudioSource>();
     }
 
     private void LoadApiKey()
     {
-        TextAsset apiKeyFile = Resources.Load<TextAsset>("API_Keys/Google API Key TTS");
+        TextAsset apiKeyFile = Resources.Load<TextAsset>("API_Keys/Google API Key TTS"); //api key .json file path in Resources folder
         if (apiKeyFile != null)
         {
             ApiKeyData data = JsonUtility.FromJson<ApiKeyData>(apiKeyFile.text);
@@ -47,17 +71,13 @@ public class AI_TextToSpeech : MonoBehaviour
         }
         else
         {
-            Debug.LogError("API Key file not found in Resources folder.");
+            Debug.LogError("API Key file not found! Make sure 'google_tts_key.json' is in the Resources folder.");
         }
     }
 
     public void Speak(string inputText)
     {
-        if (string.IsNullOrEmpty(apiKey))
-        {
-            Debug.LogError("Cannot speak: API key is missing.");
-            return;
-        }
+        Debug.Log("Speak() called with input: " + inputText);
         StartCoroutine(SendTTSRequest(inputText));
     }
 
@@ -66,38 +86,49 @@ public class AI_TextToSpeech : MonoBehaviour
         var jsonRequest = new TTSRequest
         {
             input = new TTSInput { text = inputText },
-            voice = new TTSVoice { languageCode = languageCode, name = voiceName },
+            voice = new TTSVoice { languageCode = "en-US", name = "en-US-Wavenet-D" },
             audioConfig = new TTSAudioConfig { audioEncoding = "LINEAR16" }
         };
 
         string jsonData = JsonUtility.ToJson(jsonRequest);
-        UnityWebRequest www = new UnityWebRequest(ttsUrl, "POST")
-        {
-            uploadHandler = new UploadHandlerRaw(Encoding.UTF8.GetBytes(jsonData)),
-            downloadHandler = new DownloadHandlerBuffer()
-        };
+        Debug.Log("TTS JSON Payload: " + jsonData);
+
+        UnityWebRequest www = new UnityWebRequest(ttsUrl, "POST");
+        byte[] bodyRaw = Encoding.UTF8.GetBytes(jsonData);
+        www.uploadHandler = new UploadHandlerRaw(bodyRaw);
+        www.downloadHandler = new DownloadHandlerBuffer();
         www.SetRequestHeader("Content-Type", "application/json");
+
+        Debug.Log("Sending TTS request...");
         yield return www.SendWebRequest();
 
         if (www.result == UnityWebRequest.Result.Success)
         {
-            TTSResponse response = JsonUtility.FromJson<TTSResponse>(www.downloadHandler.text);
+            Debug.Log("TTS request successful!");
+            var response = JsonUtility.FromJson<TTSResponse>(www.downloadHandler.text);
             byte[] audioBytes = System.Convert.FromBase64String(response.audioContent);
-            AudioClip clip = WavUtility.ToAudioClip(audioBytes, "TTS_Female");
-            if (clip != null)
+            Debug.Log("Decoded audio bytes length: " + audioBytes.Length);
+
+            var audioClip = WavUtility.ToAudioClip(audioBytes, "TTS");
+            if (audioClip == null)
             {
-                audioSource.clip = clip;
-                audioSource.volume = 1f;
+                Debug.LogError("AudioClip is null! WavUtility might not be working.");
+            }
+            else
+            {
+                audioSource.clip = audioClip;
+                audioSource.volume = 1.0f;
                 audioSource.spatialBlend = 0f;
                 audioSource.Play();
-                StartCoroutine(RemoveClipAfterPlay(clip.length));
+
+                StartCoroutine(RemoveClipAfterPlay(audioClip.length));
+                Debug.Log("Playing audio via custom AudioSource...");
             }
-            else Debug.LogError("Failed to create AudioClip.");
         }
         else
         {
             Debug.LogError($"TTS Error: {www.error}");
-            Debug.LogError($"Full Error: {www.downloadHandler.text}");
+            Debug.LogError($"TTS Full Error: {www.downloadHandler.text}");
         }
     }
 
@@ -105,5 +136,6 @@ public class AI_TextToSpeech : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         audioSource.clip = null;
+        Debug.Log("AudioClip removed from AudioSource.");
     }
 }
