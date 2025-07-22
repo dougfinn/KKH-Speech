@@ -118,7 +118,6 @@ public class AI_TextToSpeech : MonoBehaviour
             {
                 audioSource.clip = audioClip;
                 audioSource.volume = 1.0f;
-                audioSource.spatialBlend = 0f;
                 audioSource.Play();
 
                 StartCoroutine(RemoveClipAfterPlay(audioClip.length));
