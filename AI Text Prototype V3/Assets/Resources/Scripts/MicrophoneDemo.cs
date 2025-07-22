@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using Whisper.Utils;
 using Button = UnityEngine.UI.Button;
 using TMPro;
+using UnityEngine.InputSystem;
 
 namespace Whisper.Samples
 {
@@ -16,7 +17,7 @@ namespace Whisper.Samples
         [HideInInspector] public string inputText;
 
         [Header("UI")]
-        public Button recordButton;
+        public InputActionReference recordButton;    
         public TMP_Text recordButtonText;
 
         [Header("LLM")]
@@ -25,21 +26,23 @@ namespace Whisper.Samples
         private void Awake()
         {
             microphoneRecord.OnRecordStop += OnRecordStop;
-            recordButton.onClick.AddListener(OnButtonPressed);
+            if (recordButton != null && recordButton.action != null)
+            {
+                recordButton.action.performed += OnGripPressed;
+                recordButton.action.canceled += OnGripReleased;
+            }
         }
 
-        private void OnButtonPressed()
+        private void OnGripPressed(InputAction.CallbackContext context)
         {
-            if (!microphoneRecord.IsRecording)
-            {
-                microphoneRecord.StartRecord();
-                recordButtonText.text = "Stop";
-            }
-            else
-            {
-                microphoneRecord.StopRecord();
-                recordButtonText.text = "Record";
-            }
+            microphoneRecord.StartRecord();
+            recordButtonText.text = "Stop";
+        }
+
+        private void OnGripReleased(InputAction.CallbackContext context)
+        {
+            microphoneRecord.StopRecord();
+            recordButtonText.text = "Record";
         }
 
         private async void OnRecordStop(AudioChunk recordedAudio)
