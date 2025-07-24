@@ -86,7 +86,8 @@ public class AI_TextToSpeech : MonoBehaviour
         var jsonRequest = new TTSRequest
         {
             input = new TTSInput { text = inputText },
-            voice = new TTSVoice { languageCode = "en-US", name = "en-US-Wavenet-D" },
+            voice = new TTSVoice { languageCode = "en-US", name = "en-US-Wavenet-F" +
+            "" },
             audioConfig = new TTSAudioConfig { audioEncoding = "LINEAR16" }
         };
 
