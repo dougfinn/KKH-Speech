@@ -163,6 +163,7 @@ PlayerSettings:
   androidMaxAspectRatio: 2.1
   androidMinAspectRatio: 1
   applicationIdentifier:
+    Android: com.DefaultCompany.AITextbased
     Standalone: com.DefaultCompany.AI-Text-based
   buildNumber:
     Standalone: 0
@@ -171,7 +172,7 @@ PlayerSettings:
     tvOS: 0
   overrideDefaultApplicationIdentifier: 0
   AndroidBundleVersionCode: 1
-  AndroidMinSdkVersion: 23
+  AndroidMinSdkVersion: 24
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 1
   aotOptions: 
@@ -261,7 +262,7 @@ PlayerSettings:
   useCustomGradlePropertiesTemplate: 0
   useCustomGradleSettingsTemplate: 0
   useCustomProguardFile: 0
-  AndroidTargetArchitectures: 1
+  AndroidTargetArchitectures: 2
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
   AndroidKeystoreName: 
@@ -854,7 +855,7 @@ PlayerSettings:
   webGLCloseOnQuit: 0
   webWasm2023: 0
   scriptingDefineSymbols:
-    Android: READY_PLAYER_ME;UNITY_POST_PROCESSING_STACK_V2
+    Android: READY_PLAYER_ME;UNITY_POST_PROCESSING_STACK_V2;USE_INPUT_SYSTEM_POSE_CONTROL;USE_STICK_CONTROL_THUMBSTICKS
     EmbeddedLinux: READY_PLAYER_ME;UNITY_POST_PROCESSING_STACK_V2
     GameCoreScarlett: READY_PLAYER_ME;UNITY_POST_PROCESSING_STACK_V2
     GameCoreXboxOne: READY_PLAYER_ME;UNITY_POST_PROCESSING_STACK_V2
@@ -866,16 +867,17 @@ PlayerSettings:
     PS5: READY_PLAYER_ME;UNITY_POST_PROCESSING_STACK_V2
     QNX: READY_PLAYER_ME;UNITY_POST_PROCESSING_STACK_V2
     Stadia: READY_PLAYER_ME;UNITY_POST_PROCESSING_STACK_V2
-    Standalone: READY_PLAYER_ME;UNITY_POST_PROCESSING_STACK_V2
+    Standalone: READY_PLAYER_ME;UNITY_POST_PROCESSING_STACK_V2;USE_INPUT_SYSTEM_POSE_CONTROL;USE_STICK_CONTROL_THUMBSTICKS
     VisionOS: READY_PLAYER_ME;UNITY_POST_PROCESSING_STACK_V2
     WebGL: READY_PLAYER_ME;UNITY_POST_PROCESSING_STACK_V2
-    Windows Store Apps: READY_PLAYER_ME
+    Windows Store Apps: READY_PLAYER_ME;USE_INPUT_SYSTEM_POSE_CONTROL;USE_STICK_CONTROL_THUMBSTICKS
     XboxOne: READY_PLAYER_ME;UNITY_POST_PROCESSING_STACK_V2
     iPhone: READY_PLAYER_ME
     tvOS: READY_PLAYER_ME;UNITY_POST_PROCESSING_STACK_V2
   additionalCompilerArguments: {}
   platformArchitecture: {}
-  scriptingBackend: {}
+  scriptingBackend:
+    Android: 1
   il2cppCompilerConfiguration: {}
   il2cppCodeGeneration: {}
   il2cppStacktraceInformation: {}
