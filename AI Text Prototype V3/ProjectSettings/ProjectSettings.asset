@@ -141,7 +141,11 @@ PlayerSettings:
   visionOSBundleVersion: 1.0
   tvOSBundleVersion: 1.0
   bundleVersion: 0.1
-  preloadedAssets: []
+  preloadedAssets:
+  - {fileID: -944628639613478452, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+  - {fileID: -2186445678788170161, guid: 2046611b78bc9c84a9656ef71b3d92e4, type: 2}
+  - {fileID: 1928812494446927292, guid: 9a2d2445e668bb84382b73635e31b9e2, type: 2}
+  - {fileID: 11400000, guid: de650be9f0e512c4684cb053368bfc49, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -173,7 +177,7 @@ PlayerSettings:
   overrideDefaultApplicationIdentifier: 0
   AndroidBundleVersionCode: 1
   AndroidMinSdkVersion: 24
-  AndroidTargetSdkVersion: 0
+  AndroidTargetSdkVersion: 32
   AndroidPreferredInstallLocation: 1
   aotOptions: 
   stripEngineCode: 1
@@ -874,7 +878,8 @@ PlayerSettings:
     XboxOne: READY_PLAYER_ME;UNITY_POST_PROCESSING_STACK_V2
     iPhone: READY_PLAYER_ME
     tvOS: READY_PLAYER_ME;UNITY_POST_PROCESSING_STACK_V2
-  additionalCompilerArguments: {}
+  additionalCompilerArguments:
+    Android: []
   platformArchitecture: {}
   scriptingBackend:
     Android: 1

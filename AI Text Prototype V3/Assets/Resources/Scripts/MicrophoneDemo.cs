@@ -20,6 +20,7 @@ namespace Whisper.Samples
         public InputActionReference leftRecordButton;
         public InputActionReference rightRecordButton;   
         public TMP_Text recordButtonText;
+        public TMP_Text debugLogText;
 
         [Header("LLM")]
         [SerializeField] private LLMChat llmChat;
@@ -69,17 +70,18 @@ namespace Whisper.Samples
         private void OnGripReleased(InputAction.CallbackContext context)
         {
             microphoneRecord.StopRecord();
-            recordButtonText.text = "Record";
         }
 
         private async void OnRecordStop(AudioChunk recordedAudio)
         {
             recordButtonText.text = "Record";
+            debugLogText.text = "Processing audio...";
 
             var res = await whisper.GetTextAsync(recordedAudio.Data, recordedAudio.Frequency, recordedAudio.Channels);
             if (res == null) return;
 
             inputText = res.Result;
+            debugLogText.text = $"Transcribed Text: {inputText}";
 
             // Automatically send to Large Language Model
             if (llmChat != null)

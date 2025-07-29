@@ -18,7 +18,7 @@ public class OpenAIChat : MonoBehaviour
     [SerializeField] private RectTransform received;
 
     private float height;
-    private OpenAIApi openai = new OpenAIApi();
+    private OpenAIApi openai = new OpenAIApi("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");
 
     private List<ChatMessage> chatHistory = new List<ChatMessage>();
 
