@@ -465,6 +465,7 @@ GameObject:
   - component: {fileID: 876010603}
   - component: {fileID: 876010605}
   - component: {fileID: 876010604}
+  - component: {fileID: 876010606}
   m_Layer: 0
   m_Name: AI
   m_TagString: Untagged
@@ -905,6 +906,22 @@ MonoBehaviour:
   debugLaughterKey: 104
   showLaughter: 0
   laughterScore: 0
+--- !u!114 &876010606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 876010588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f17a704742ba3f4e8ee667b6a153216, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 379583678379211799}
+  audioSource: {fileID: 876010591}
+  talkingAnimationCount: 5
+  isTalking: 0
 --- !u!1001 &2090345801
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -974,6 +991,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 876010593}
     m_Modifications:
+    - target: {fileID: 5333796705842738361, guid: 2e9eff26be3706d46bfed8b4b5e773c6, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 8e69184ecad010749b48c62f237935c4, type: 2}
     - target: {fileID: 5453589930575018698, guid: 2e9eff26be3706d46bfed8b4b5e773c6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1026,6 +1047,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 5448508027224134201}
   m_SourcePrefab: {fileID: 100100000, guid: 2e9eff26be3706d46bfed8b4b5e773c6, type: 3}
+--- !u!95 &379583678379211799 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5333796705842738361, guid: 2e9eff26be3706d46bfed8b4b5e773c6, type: 3}
+  m_PrefabInstance: {fileID: 379583678379211798}
+  m_PrefabAsset: {fileID: 0}
 --- !u!137 &727505787289958328 stripped
 SkinnedMeshRenderer:
   m_CorrespondingSourceObject: {fileID: 1141252031914996802, guid: 2e9eff26be3706d46bfed8b4b5e773c6, type: 3}

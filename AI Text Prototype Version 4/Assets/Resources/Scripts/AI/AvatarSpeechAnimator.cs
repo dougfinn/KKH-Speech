@@ -8,7 +8,7 @@ public class AvatarSpeechAnimator : MonoBehaviour
 
     private bool wasTalking = false;
 
-    public bool isTalking;
+    [HideInInspector] public bool isTalking;
 
     void Update()
     {
