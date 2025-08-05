@@ -4,7 +4,7 @@ public class AvatarSpeechAnimator : MonoBehaviour
 {
     public Animator animator;
     public AudioSource audioSource;
-    public int talkingAnimationCount = 5;
+    public int talkingAnimationCount = 4;
 
     private bool wasTalking = false;
 
