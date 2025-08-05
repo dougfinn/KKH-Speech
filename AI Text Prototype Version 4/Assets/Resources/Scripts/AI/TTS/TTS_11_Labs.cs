@@ -57,7 +57,8 @@ public class TTS_11_Labs : MonoBehaviour
     Animator avtAnimator;
     int selectedVoiceIndex;
 
-    API_Keys api_Keys;
+    private API_Keys api_Keys;
+    private AvatarSpeechAnimator avatarSpeechAnimator; // Reference to the AvatarSpeechAnimator component
 
     [SerializeField] private bool debug = false;
     const string DEBUG_PREFIX = "TTS_11LABS: ";
@@ -68,6 +69,7 @@ public class TTS_11_Labs : MonoBehaviour
     {
         //We first retrieve the API keys from the API Key component
         api_Keys = GetComponent<API_Keys>();
+        avatarSpeechAnimator = gameObject.GetComponent<AvatarSpeechAnimator>();
         if (!api_Keys)
             Debug.LogError(DEBUG_PREFIX + "Cannot find the API Keys component, please check the Inspector!");
         else ELEVENLABS_API_KEY = api_Keys.GetAPIKey("ElevenLabs_API_Key");
@@ -140,6 +142,7 @@ public class TTS_11_Labs : MonoBehaviour
             //The below replaces PlayOneShot(), used for WebGL compatibility
             GetComponent<AudioSource>().clip = clip;
             GetComponent<AudioSource>().loop = false;
+            avatarSpeechAnimator.isTalking = true; // Set the talking state to true
             GetComponent<AudioSource>().Play();
 
             StartCoroutine(WaitForTalkingFinished());
@@ -159,7 +162,7 @@ public class TTS_11_Labs : MonoBehaviour
         GetComponent<AudioSource>().clip = null;
         GetComponent<AudioSource>().Stop();
 
-        avtAnimator.SetBool("isTalking", false);
+       avatarSpeechAnimator.isTalking = false; // Set the isTalking flag to false when the audio stops playing
 
         //Add any code here that has to be sure the speech is completed, eg. animations
     }

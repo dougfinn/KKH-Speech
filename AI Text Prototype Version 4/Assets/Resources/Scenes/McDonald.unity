@@ -473,6 +473,7 @@ GameObject:
   - component: {fileID: 876010603}
   - component: {fileID: 876010605}
   - component: {fileID: 876010604}
+  - component: {fileID: 876010606}
   m_Layer: 0
   m_Name: AI
   m_TagString: Untagged
@@ -913,6 +914,21 @@ MonoBehaviour:
   debugLaughterKey: 104
   showLaughter: 0
   laughterScore: 0
+--- !u!114 &876010606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 876010588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f17a704742ba3f4e8ee667b6a153216, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 5448508027224134203}
+  audioSource: {fileID: 876010591}
+  talkingAnimationCount: 5
 --- !u!1001 &379583678379211798
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -976,9 +992,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8209848877359064420, guid: 2e9eff26be3706d46bfed8b4b5e773c6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5448508027224134201}
-    - targetCorrespondingSourceObject: {fileID: 8209848877359064420, guid: 2e9eff26be3706d46bfed8b4b5e773c6, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 5448508027224134204}
   m_SourcePrefab: {fileID: 100100000, guid: 2e9eff26be3706d46bfed8b4b5e773c6, type: 3}
 --- !u!137 &727505787289958328 stripped
 SkinnedMeshRenderer:
@@ -1031,21 +1044,6 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 5333796705842738361, guid: 2e9eff26be3706d46bfed8b4b5e773c6, type: 3}
   m_PrefabInstance: {fileID: 379583678379211798}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5448508027224134204
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5448508027224134200}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f17a704742ba3f4e8ee667b6a153216, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 5448508027224134203}
-  audioSource: {fileID: 876010591}
-  talkingAnimationCount: 5
 --- !u!1 &6168700971488483632
 GameObject:
   m_ObjectHideFlags: 0

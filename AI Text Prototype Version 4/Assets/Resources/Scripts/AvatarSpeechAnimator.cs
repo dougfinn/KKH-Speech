@@ -8,9 +8,10 @@ public class AvatarSpeechAnimator : MonoBehaviour
 
     private bool wasTalking = false;
 
+    public bool isTalking;
+
     void Update()
     {
-        bool isTalking = audioSource.clip;
         if (audioSource.clip != null)
         {
             Debug.Log("Audio is playing");

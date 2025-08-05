@@ -45,15 +45,17 @@ public class TTS_Google : MonoBehaviour
         public string audioContent;
     }
 
-    API_Keys api_Keys;
+    private API_Keys api_Keys;
     private string TTS_Google_ApiKey;
     private string ttsUrl => $"https://texttospeech.googleapis.com/v1/text:synthesize?key={TTS_Google_ApiKey}";
 
     private AudioSource audioSource;
+    private AvatarSpeechAnimator avatarSpeechAnimator; // Reference to the AvatarSpeechAnimator component
 
     public void Init()
     {   
         audioSource = gameObject.GetComponent<AudioSource>();
+        avatarSpeechAnimator = gameObject.GetComponent<AvatarSpeechAnimator>();
         //We first retrieve the API keys from the API Key component
         api_Keys = GetComponent<API_Keys>();
         if (!api_Keys)
@@ -112,6 +114,7 @@ public class TTS_Google : MonoBehaviour
             {
                 audioSource.clip = audioClip;
                 audioSource.volume = 1.0f;
+                avatarSpeechAnimator.isTalking = true; // Set the talking state to true
                 audioSource.Play();
 
                 StartCoroutine(RemoveClipAfterPlay(audioClip.length));
@@ -130,5 +133,6 @@ public class TTS_Google : MonoBehaviour
         yield return new WaitForSeconds(delay);
         audioSource.clip = null;
         Debug.Log("AudioClip removed from AudioSource.");
+        avatarSpeechAnimator.isTalking = false; // Set the talking state to false
     }
 }
