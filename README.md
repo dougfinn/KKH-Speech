@@ -61,5 +61,9 @@ Our ultimate goal is to bridge the gap between virtual practice and real-world s
     - In the **AI** GameObject, ensure all LLM components have the correct prompt file path set.
 
 11. **Apply the Same Setup to the McDonald's Scene**  
-   Repeat steps above for the McDonald's scene to ensure consistent setup.
+   - Repeat steps above for the McDonald's scene to ensure consistent setup.
+
+##During Play
+- Press Grab Button to turn on microphone and interact with the AI.
+
 
