@@ -43,8 +43,15 @@
    - Add or remove as needed for your project  
 
 8. **Fix UI Event System**  
-   - Remove any existing **Event System** in the scene; otherwise, UI may not work properly  
+   - Remove any existing **Event System** in the scene; otherwise, UI may not work properly
 
-9. **Apply the Same Setup to the McDonald's Scene**  
+9. **Edit Prompts**  
+    - Modify prompt `.json` files as desired  
+    - These are located under: `Assets/Resources/AI_Prompts`
+
+10. **Reference the Prompt Path in LLM Components**  
+    - In the **AI** GameObject, ensure all LLM components have the correct prompt file path set.
+
+11. **Apply the Same Setup to the McDonald's Scene**  
    Repeat steps above for the McDonald's scene to ensure consistent setup.
 
