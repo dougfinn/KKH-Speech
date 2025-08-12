@@ -63,7 +63,7 @@ Our ultimate goal is to bridge the gap between virtual practice and real-world s
 11. **Apply the Same Setup to the McDonald's Scene**  
    - Repeat steps above for the McDonald's scene to ensure consistent setup.
 
-##During Play
+## During Play
 - Press Grab Button to turn on microphone and interact with the AI.
 
 
