@@ -1,4 +1,4 @@
-# Final-Year-Project-KKH
+# Social Skill Practice with VR
 
 ## Steps to get started
 1. **Pull or Fork the Branch**  
