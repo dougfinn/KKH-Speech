@@ -64,6 +64,6 @@ Our ultimate goal is to bridge the gap between virtual practice and real-world s
    - Repeat steps above for the McDonald's scene to ensure consistent setup.
 
 ## During Play
-- Press Grab Button to turn on microphone and interact with the AI.
+- Press Grab Button in Meta Quest 3/3s controller to turn on microphone and interact with the AI.
 
 
