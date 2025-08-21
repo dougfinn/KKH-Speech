@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Social Skill Practice with VR
 
 ## Project Description
@@ -65,5 +66,9 @@ Our ultimate goal is to bridge the gap between virtual practice and real-world s
 
 ## During Play
 - Press Grab Button in Meta Quest 3/3s controller to turn on microphone and interact with the AI.
+=======
+# Final-Year-Project-KKH
+Final Year Project for KKH
+>>>>>>> parent of 14e57eb (Update README.md)
 
 
